@@ -9,11 +9,26 @@ This repo contains much more styling than the one we built together in the tutor
 
 The [tutorial itself](https://redwoodjs.com/tutorial2/prerequisites) contains instructions for getting this repo up and running, but here is a summary of the commands:
 
+### Clone example blog repo
+
 ```bash
 git clone https://github.com/redwoodjs/redwood-tutorial
-cd redwood-tutorial
-yarn install
+```
+
+### Change directory and install dependencies
+
+```bash
+cd redwood-tutorial && yarn
+```
+
+### Generate the Prisma client and apply migrations
+
+```bash
 yarn rw db up
-yarn rw db seed
-yarn rw dev
+```
+
+### Seed database with test data and start development server
+
+```bash
+yarn rw db seed && yarn rw dev
 ```
