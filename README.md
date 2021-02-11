@@ -64,6 +64,22 @@ const BlogPost = ({ post }) => {
 export default BlogPost
 ```
 
+```javascript
+<article>
+  <header>
+    <h2>
+      <Link to={
+        routes.blogPost({ id: post.id })
+      }>
+        {post.title}
+      </Link>
+    </h2>
+  </header>
+  
+  <div>{post.body}</div>
+</article>
+```
+
 ### BlogPost.stories.js
 
 ```javascript
@@ -117,6 +133,24 @@ const BlogPost = ({ post, summary = false }) => {
     </article>
   )
 }
+```
+
+```javascript
+<article>
+  <header>
+    <h2>
+      <Link to={
+        routes.blogPost({ id: post.id })
+      }>
+        {post.title}
+      </Link>
+    </h2>
+  </header>
+  
+  <div>
+    {summary ? truncate(post.body, 100) : post.body}
+  </div>
+</article>
 ```
 
 ### Edit `BlogPost.stories.js` to include `summary` and `full`
@@ -182,9 +216,17 @@ yarn rw g component Comment
 const Comment = ({ comment }) => {
   return (
     <div>
-      <h2>{comment.name}</h2>
-      <time datetime={comment.createdAt}>{comment.createdAt}</time>
-      <p>{comment.body}</p>
+      <h2>
+        {comment.name}
+      </h2>
+      
+      <time datetime={comment.createdAt}>
+        {comment.createdAt}
+      </time>
+      
+      <p>
+        {comment.body}
+      </p>
     </div>
   )
 }
@@ -230,11 +272,20 @@ const formattedDate = (datetime) => {
 const Comment = ({ comment }) => {
   return (
     <div>
-      <h2>{comment.name}</h2>
-      <time className="text-xs text-gray-500" dateTime={comment.createdAt}>
-          {formattedDate(comment.createdAt)}
-        </time>
-      <p>{comment.body}</p>
+      <h2>
+        {comment.name}
+      </h2>
+      
+      <time
+        className="text-xs text-gray-500"
+        dateTime={comment.createdAt}
+      >
+        {formattedDate(comment.createdAt)}
+      </time>
+        
+      <p>
+        {comment.body}
+      </p>
     </div>
   )
 }
@@ -249,12 +300,21 @@ const Comment = ({ comment }) => {
   return (
     <div className="bg-gray-200 p-8 rounded-lg">
       <header className="flex justify-between">
-        <h2 className="font-semibold text-gray-700">{comment.name}</h2>
-        <time className="text-xs text-gray-500" dateTime={comment.createdAt}>
+        <h2 className="font-semibold text-gray-700">
+          {comment.name}
+        </h2>
+        
+        <time
+          className="text-xs text-gray-500"
+          dateTime={comment.createdAt}
+        >
           {formattedDate(comment.createdAt)}
-        </time>
+        </time>  
       </header>
-      <p className="text-sm mt-2">{comment.body}</p>
+      
+      <p className="text-sm mt-2">
+        {comment.body}
+      </p>
     </div>
   )
 }
@@ -320,7 +380,10 @@ export const QUERY = gql`
 
 export const Success = ({ comments }) => {
   return comments.map((comment) => (
-    <Comment key={comment.id} comment={comment} />
+    <Comment
+      key={comment.id}
+      comment={comment}
+    />
   ))
 }
 ```
@@ -330,7 +393,7 @@ export const Success = ({ comments }) => {
 ```javascript
 // web/src/components/CommentsCell/CommentsCell.mock.js
 
-export const standard = (/* vars, { ctx, req } */) => ({
+export const standard = () => ({
   comments: [
     {
       id: 1,
@@ -357,7 +420,10 @@ export const Success = ({ comments }) => {
   return (
     <div className="-mt-8">
       {comments.map((comment) => (
-        <div key={comment.id} className="mt-8">
+        <div
+          key={comment.id}
+          className="mt-8"
+        >
           <Comment comment={comment} />
         </div>
       ))}
@@ -396,12 +462,18 @@ const BlogPost = ({ post, summary = false }) => {
     <article className="mt-10">
       <header>
         <h2 className="text-xl text-blue-700 font-semibold">
-          <Link to={routes.blogPost({ id: post.id })}>{post.title}</Link>
+          <Link to={
+            routes.blogPost({ id: post.id })
+          }>
+            {post.title}
+          </Link>
         </h2>
       </header>
+      
       <div className="mt-2 text-gray-900 font-light">
         {summary ? truncate(post.body, 100) : post.body}
       </div>
+      
       {!summary && <CommentsCell />}
     </article>
   )
@@ -431,12 +503,18 @@ const BlogPost = ({ post, summary = false }) => {
     <article className="mt-10">
       <header>
         <h2 className="text-xl text-blue-700 font-semibold">
-          <Link to={routes.blogPost({ id: post.id })}>{post.title}</Link>
+          <Link to={
+            routes.blogPost({ id: post.id })
+          }>
+            {post.title}
+          </Link>
         </h2>
       </header>
+      
       <div className="mt-2 text-gray-900 font-light">
         {summary ? truncate(post.body, 100) : post.body}
       </div>
+      
       {!summary && (
         <div className="mt-24">
           <CommentsCell />
